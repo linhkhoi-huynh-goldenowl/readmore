@@ -34,7 +34,7 @@ class ReadMoreText extends StatefulWidget {
     this.delimiterStyle,
     this.callback,
     this.onLinkPressed,
-    this.linkTextStyle,
+    this.linkTextStyle,this.enableTap=true
   }) : super(key: key);
 
   /// Used on TrimMode.Length
@@ -68,6 +68,9 @@ class ReadMoreText extends StatefulWidget {
 
   ///Called when state change between expanded/compress
   final Function(bool val)? callback;
+
+  ///Enable onTap
+  final bool enableTap;
 
   final ValueChanged<String>? onLinkPressed;
 
@@ -131,7 +134,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
     TextSpan link = TextSpan(
       text: _readMore ? widget.trimCollapsedText : widget.trimExpandedText,
       style: _readMore ? _defaultMoreStyle : _defaultLessStyle,
-      recognizer: TapGestureRecognizer()..onTap = _onTapLink,
+      recognizer:widget.enableTap? (TapGestureRecognizer()..onTap = _onTapLink):null,
     );
 
     TextSpan _delimiter = TextSpan(
@@ -141,7 +144,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
               : ''
           : '',
       style: _defaultDelimiterStyle,
-      recognizer: TapGestureRecognizer()..onTap = _onTapLink,
+      recognizer: widget.enableTap? (TapGestureRecognizer()..onTap = _onTapLink):null,
     );
 
     Widget result = LayoutBuilder(
