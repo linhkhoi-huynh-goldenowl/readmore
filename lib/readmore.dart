@@ -9,33 +9,33 @@ enum TrimMode {
 }
 
 class ReadMoreText extends StatefulWidget {
-  const ReadMoreText(
-    this.data, {
-    Key? key,
-    this.preDataText,
-    this.postDataText,
-    this.preDataTextStyle,
-    this.postDataTextStyle,
-    this.trimExpandedText = 'show less',
-    this.trimCollapsedText = 'read more',
-    this.colorClickableText,
-    this.trimLength = 240,
-    this.trimLines = 2,
-    this.trimMode = TrimMode.Length,
-    this.style,
-    this.textAlign,
-    this.textDirection,
-    this.locale,
-    this.textScaleFactor,
-    this.semanticsLabel,
-    this.moreStyle,
-    this.lessStyle,
-    this.delimiter = _kEllipsis + ' ',
-    this.delimiterStyle,
-    this.callback,
-    this.onLinkPressed,
-    this.linkTextStyle,this.enableTap=true
-  }) : super(key: key);
+  const ReadMoreText(this.data,
+      {Key? key,
+      this.preDataText,
+      this.postDataText,
+      this.preDataTextStyle,
+      this.postDataTextStyle,
+      this.trimExpandedText = 'show less',
+      this.trimCollapsedText = 'read more',
+      this.colorClickableText,
+      this.trimLength = 240,
+      this.trimLines = 2,
+      this.trimMode = TrimMode.Length,
+      this.style,
+      this.textAlign,
+      this.textDirection,
+      this.locale,
+      this.textScaleFactor,
+      this.semanticsLabel,
+      this.moreStyle,
+      this.lessStyle,
+      this.delimiter = _kEllipsis + ' ',
+      this.delimiterStyle,
+      this.callback,
+      this.onLinkPressed,
+      this.linkTextStyle,
+      this.enableTap = true})
+      : super(key: key);
 
   /// Used on TrimMode.Length
   final int trimLength;
@@ -134,7 +134,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
     TextSpan link = TextSpan(
       text: _readMore ? widget.trimCollapsedText : widget.trimExpandedText,
       style: _readMore ? _defaultMoreStyle : _defaultLessStyle,
-      recognizer:widget.enableTap? (TapGestureRecognizer()..onTap = _onTapLink):null,
+      recognizer: widget.enableTap
+          ? (TapGestureRecognizer()..onTap = _onTapLink)
+          : null,
     );
 
     TextSpan _delimiter = TextSpan(
@@ -144,7 +146,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
               : ''
           : '',
       style: _defaultDelimiterStyle,
-      recognizer: widget.enableTap? (TapGestureRecognizer()..onTap = _onTapLink):null,
+      recognizer: widget.enableTap
+          ? (TapGestureRecognizer()..onTap = _onTapLink)
+          : null,
     );
 
     Widget result = LayoutBuilder(
@@ -333,11 +337,6 @@ class ReadMoreTextState extends State<ReadMoreText> {
       contents.add(
         TextSpan(
           text: linkTextPart,
-          style: linkTextStyle,
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => onPressed?.call(
-                  linkTextPart.trim(),
-                ),
         ),
       );
       data = data.substring(match.end, data.length);
